@@ -15,26 +15,31 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 @EnableWebSecurity
 public class SpringSecurityConfig {
+
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-		return http.authorizeHttpRequests(auth -> {
-			auth.requestMatchers("/admin").hasRole("ADMIN");
-			auth.requestMatchers("/user").hasRole("USER");
-			auth.anyRequest().authenticated();
-		}).formLogin(Customizer.withDefaults()).build();
+		return http.
+				authorizeHttpRequests(auth -> {
+					auth.requestMatchers("/").authenticated();
+					auth.anyRequest().authenticated();
+			}).formLogin(Customizer.withDefaults()).build();
 	}
 
 	@Bean
 	public UserDetailsService users() {
+		UserDetails saduser = User.builder()
+				.username("saduser")
+				.password(passwordEncoder().encode("123"))
+				.roles("SAD_USER").build();
 		UserDetails user = User.builder()
 				.username("user")
-				.password(passwordEncoder().encode("user"))
+				.password(passwordEncoder().encode("123"))
 				.roles("USER").build();
-		UserDetails admin = User.builder()
-				.username("admin")
-				.password(passwordEncoder().encode("admin"))
-				.roles("USER", "ADMIN").build();
-		return new InMemoryUserDetailsManager(user, admin);
+		UserDetails superuser = User.builder()
+				.username("superuser")
+				.password(passwordEncoder().encode("123"))
+				.roles("SUPER_USER").build();
+		return new InMemoryUserDetailsManager(saduser, user, superuser);
 	}
 
 	@Bean

@@ -1,7 +1,6 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
     <meta charset="utf-8"/>
     <title>VM Creator</title>
@@ -26,22 +25,25 @@
     <div class="mainBox">
 
         <h1 class="titre">Dashboard</h1>
+        <div>
+            <p>Utilisateur connecté : <span th:text="${username}"></span></p>
+        </div>
 
-        <h1 th:inline="text">Hello <span th:remove="tag" sec:authentication="name">thymeleaf</span>!</h1>
-
-        <div sec:authorize="hasRole('USER')">Text visible to user.</div>
-        <div sec:authorize="hasRole('ADMIN')">Text visible to admin.</div>
-        <div sec:authorize="isAuthenticated()">Text visible only to authenticated users.</div>
-        Authenticated username:
-        <div sec:authentication="username"></div>
-        Authenticated user's firstName:
-        <div sec:authentication="principal.username"></div>
+        <div th:if="${role == 'ROLE_SAD_USER'}">
+            <h1 th:inline="text">Bienvenue saduser !</h1>
+            <p>Vous n'avez malheureusement aucun crédit, ce qui ne vous donne aucun droit... Dommage !</p>
+        </div>
 
 
+        <div th:if="${role == 'ROLE_USER'}">
+            <h1 th:inline="text">Bienvenue user !</h1>
+            <p>Utilisation de la machine préconfigurée : Linux</p>
+        </div>
 
-
-
-
+        <div th:if="${role == 'ROLE_SUPER_USER'}">
+            <h1 th:inline="text">Bienvenue superuser !</h1>
+            <p>Vous avez le droit à plusieurs systèmes d’exploitations.</p>
+        </div>
 
         <form th:action="@{/logout}" method="post">
             <input class="bouton" type="submit" value="Sign Out"/>
