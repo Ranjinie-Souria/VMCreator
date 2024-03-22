@@ -73,7 +73,9 @@ Il faut ensuite taper le nom de l'appli puis pour finir sélectionner Vérifier 
 ![image](https://github.com/Ranjinie-Souria/VMCreator/assets/36516479/24343596-6482-453c-b5bc-891e0a513253)
 
 
-### Lancer l'application
+## Lancer l'application
+
+### Installation des dépendances
 
 Après avoir ouvert l'application sur votre IDE, vous devez d'abord installer les dépendances utilisées par le projet.
 Si vous ne l'avez pas déjà téléchargée, il faut installer le SDK de [Java 19](https://www.oracle.com/java/technologies/javase/jdk19-archive-downloads.html). 
@@ -100,11 +102,33 @@ Vous pouvez maintenant lancer l'application avec cette commande :
 mvn spring-boot:run
 ```
 
-Spring Boot va lancer l'application sur le port 8081 de votre localhost, vous pouvez changer à tout moment le port utilisé dans le fichier application.properties.yml :
+Spring Boot va lancer l'application sur le port 8081 de votre localhost, vous pouvez changer à tout moment le port utilisé dans le fichier ``application.properties.yml`` :
 Emplacement du fichier : `` src/main/resources/application.properties ``
 
 ![image](https://github.com/Ranjinie-Souria/VMCreator/assets/36516479/4719a975-eaf9-4541-ae48-2993466ddd6d)
 
 
+### VM Creator
+
+Pour accéder à l'application, accédez à l'url ``http://localhost:8081/``, n'oubliez pas de changer le port s'il ne correspond pas à celui entré dans ``application.properties.yml``.
+
+L'application possède en mémoire 3 utilisateurs.
+
+```
+Nom d'utilisateur : saduser
+Mot de passe : 123
+
+Nom d'utilisateur : user
+Mot de passe : 123
+
+Nom d'utilisateur : superuser
+Mot de passe : 123
+```
+
+L'utilisateur "saduser" n'a aucun droit et ne peut rien faire.
+L'utilisateur "user" a accès à une machine linux préconfigurée.
+L'utilisateur "superuser" a accès à plusieurs systèmes d’exploitations et peut choisir lequel il démarre.
+
+Lorsque vous vous connectez à l'un des comptes, vous êtes dirigé vers le "dashboard". Suivant l'utilisateur connecté, vous aurez donc différentes options.
 
 
