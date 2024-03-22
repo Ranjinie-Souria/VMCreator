@@ -131,4 +131,10 @@ L'utilisateur "superuser" a accès à plusieurs systèmes d’exploitations et p
 
 Lorsque vous vous connectez à l'un des comptes, vous êtes dirigé vers le "dashboard". Suivant l'utilisateur connecté, vous aurez donc différentes options.
 
+#### Utilisateur user
 
+Pour cette utilisateur, il vous faut une clé ssh, que vous trouverez dans votre dossier C:\Users\<username>\. ssh\id_rsa. Le formulaire vous demandera donc de renseigner votre clé ssh, puis le nom de votre VM.
+
+L'application vous montrera ensuite l'adresse IP de la VM créee. Pour se connecter à la VM, utilisez un terminal bash : 
+```ssh username@ip_address
+```
