@@ -40,8 +40,10 @@
             <p>Utilisation de la machine préconfigurée : Linux</p>
 
             <form th:action="@{/VM}" th:object="${vm}" method="post">
+                Attention ! Le nom du groupe de ressource doit toujours être différent !
                 <p>Clé SSH : <input type="text" th:field="*{sshKey}" /></p>
                 <p>Nom de votre VM : <input type="text" th:field="*{vmName}" /></p>
+                <p>Nom du groupe de ressource : <input type="text" th:field="*{resourceGroup}" /></p>
                 <input class="bouton" type="submit" value="Créer la VM"/>
             </form>
 
@@ -50,6 +52,14 @@
         <div th:if="${role == 'ROLE_SUPER_USER'}">
             <h1 th:inline="text">Bienvenue superuser !</h1>
             <p>Vous avez le droit à plusieurs systèmes d’exploitations.</p>
+
+            <form th:action="@{/VM}" th:object="${vm}" method="post">
+                Attention ! Le nom du groupe de ressource doit toujours être différent !
+                <p>Clé SSH : <input type="text" th:field="*{sshKey}" /></p>
+                <p>Nom de votre VM : <input type="text" th:field="*{vmName}" /></p>
+                <p>Nom du groupe de ressource : <input type="text" th:field="*{resourceGroup}" /></p>
+                <input class="bouton" type="submit" value="Créer la VM"/>
+            </form>
         </div>
 
         <form th:action="@{/logout}" method="post">

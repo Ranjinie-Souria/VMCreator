@@ -41,6 +41,7 @@ public class AzureVMService {
 
     private String vmName = "";
     private String sshKey = "";
+    private String resourceGroup = "";
     private VirtualMachine linuxVM;
     private AzureResourceManager azureResourceManager;
 
@@ -52,11 +53,13 @@ public class AzureVMService {
 
         this.sshKey = vm.getSshKey();
         this.vmName = vm.getVmName();
+        this.resourceGroup = vm.getResourceGroup();
+
         TokenCredential credential = new EnvironmentCredentialBuilder()
                 .authorityHost(AzureAuthorityHosts.AZURE_PUBLIC_CLOUD)
                 .build();
 
-        AzureProfile profile = new AzureProfile(AZURE_TENANT_ID, AZURE_SUBSCRIPTION_ID, AzureEnvironment.AZURE);
+        AzureProfile profile = new AzureProfile(AzureEnvironment.AZURE);
 
         this.azureResourceManager = AzureResourceManager.configure()
                 .withLogLevel(HttpLogDetailLevel.BASIC)
@@ -82,7 +85,7 @@ public class AzureVMService {
             // Create an Ubuntu virtual machine in a new resource group.
             this.linuxVM = this.azureResourceManager.virtualMachines().define("testLinuxVM")
                     .withRegion(Region.FRANCE_CENTRAL)
-                    .withNewResourceGroup("sampleVmResourceGroup")
+                    .withNewResourceGroup(this.resourceGroup)
                     .withNewPrimaryNetwork("10.0.0.0/24")
                     .withPrimaryPrivateIPAddressDynamic()
                     .withoutPrimaryPublicIPAddress()

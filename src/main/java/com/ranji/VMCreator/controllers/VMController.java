@@ -25,15 +25,9 @@ public class VMController {
     private static final Logger log = LoggerFactory.getLogger(VMController.class);
 
     @RequestMapping(value = "/VM", method = { RequestMethod.POST })
-    public String createVM(Model model, Principal principal, @ModelAttribute Vm vm) {
-        UsernamePasswordAuthenticationToken token = (UsernamePasswordAuthenticationToken) principal;
-        Collection<? extends GrantedAuthority> authorities = token.getAuthorities();
-        String role = "";
-        if (!authorities.isEmpty()) {
-            GrantedAuthority firstAuthority = authorities.iterator().next();
-            role = firstAuthority.getAuthority();
-        }
+    public String createVM(Model model, @ModelAttribute Vm vm) {
         String ipAddress = vmService.createAndDestroyVM(vm);
+        model.addAttribute("ip",ipAddress);
         return "vm";
     }
 
