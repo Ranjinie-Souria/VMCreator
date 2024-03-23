@@ -40,6 +40,7 @@ public class AzureVMService {
     private static final long DESTROY_DELAY = 5 * 60 * 1000; // 10 minutes
 
     private String vmName = "";
+    private String vmUser = "";
     private String sshKey = "";
     private String resourceGroup = "";
     private VirtualMachine linuxVM;
@@ -51,6 +52,7 @@ public class AzureVMService {
         System.setProperty("AZURE_CLIENT_SECRET", AZURE_CLIENT_SECRET);
         System.setProperty("AZURE_SUBSCRIPTION_ID", AZURE_SUBSCRIPTION_ID);
 
+        this.vmUser = vm.getVmUser();
         this.sshKey = vm.getSshKey();
         this.vmName = vm.getVmName();
         this.resourceGroup = vm.getResourceGroup();
@@ -83,29 +85,27 @@ public class AzureVMService {
     public String createVirtualMachine() {
         try {
             // Create an Ubuntu virtual machine in a new resource group.
-            this.linuxVM = this.azureResourceManager.virtualMachines().define("testLinuxVM")
+            this.linuxVM = this.azureResourceManager.virtualMachines().define(this.vmName)
                     .withRegion(Region.FRANCE_CENTRAL)
                     .withNewResourceGroup(this.resourceGroup)
                     .withNewPrimaryNetwork("10.0.0.0/24")
                     .withPrimaryPrivateIPAddressDynamic()
-                    .withoutPrimaryPublicIPAddress()
-                    .withPopularLinuxImage(KnownLinuxVirtualMachineImage.UBUNTU_SERVER_18_04_LTS)
-                    .withRootUsername(vmName)
-                    .withSsh(sshKey)
+                    .withNewPrimaryPublicIPAddress(this.resourceGroup)
+                    .withPopularLinuxImage(KnownLinuxVirtualMachineImage.DEBIAN_9)
+                    .withRootUsername(this.vmUser)
+                    .withSsh(this.sshKey)
                     .withSize(VirtualMachineSizeTypes.STANDARD_D3_V2)
                     .create();
             String publicIPAddress = this.linuxVM.getPrimaryPublicIPAddressId();
             if (publicIPAddress != null) {
                 log.debug("Adresse IP publique : " + publicIPAddress);
                 return publicIPAddress;
-            } else {
-                log.debug("Adresse IP publique non trouvée pour la machine virtuelle.");
-                return null;
             }
-
         } catch (Exception e) {
             System.out.println(e.getMessage());
             e.printStackTrace();
+            log.debug("Adresse IP publique non trouvée pour la machine virtuelle.");
+            return null;
         }
         return null;
     }

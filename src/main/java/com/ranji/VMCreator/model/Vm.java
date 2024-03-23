@@ -3,8 +3,17 @@ package com.ranji.VMCreator.model;
 public class Vm {
     private String sshKey;
     private String vmName;
-
+    private String vmUser;
     private String resourceGroup;
+
+
+    public String getVmUser() {
+        return vmUser;
+    }
+
+    public void setVmUser(String vmUser) {
+        this.vmUser = vmUser;
+    }
 
     public String getSshKey() {
         return sshKey;
@@ -35,6 +44,7 @@ public class Vm {
         return "Vm{" +
                 "sshKey='" + sshKey + '\'' +
                 ", vmName='" + vmName + '\'' +
+                ", vmUser='" + vmUser + '\'' +
                 ", resourceGroup='" + resourceGroup + '\'' +
                 '}';
     }
