@@ -157,7 +157,8 @@ L'application vous montrera ensuite l'adresse IP de la VM créee. Pour se connec
 ssh username@ip_address
 ```
 
-En cas de soucis, l'application vous informera normalement du problème.
+L'application vous informera si la création s'est mal passée. En général, les problèmes surviennent si :
+
 
 ### Suppression
 

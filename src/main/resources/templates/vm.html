@@ -31,11 +31,12 @@
         <div th:if="${ip}">
             <p>Machine créee !</p>
             <p>Adresse ip de la machine : <span th:text="${ip}"></span></p>
+            <p>Pour vous connecter à la machine, utilisez un terminal bash et lancez la commande :
+            ssh <span th:text="${user}"></span>@<span th:text="${ip}"></span></p>
         </div>
         <div th:unless="${ip}">
             <p>Erreur durant la création de la machine... =(</p>
         </div>
-
 
         <form th:action="@{/logout}" method="post">
             <input class="bouton" type="submit" value="Sign Out"/>

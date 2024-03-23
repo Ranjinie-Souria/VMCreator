@@ -87,6 +87,7 @@
                             Le nom de la VM
                         </li>
                     </ul>
+                    Si vous choisissez une VM windows, vous devez écrire un mot de passe au lieu d'une clé SSH.
                 </div>
                 <div class="form-group">
                     <p>Nom de l'utilisateur : <input type="text" th:field="*{vmUser}" /></p>
@@ -98,9 +99,15 @@
                     <p>Nom du groupe de ressources : <input type="text" th:field="*{resourceGroup}" /></p>
                 </div>
                 <div class="form-group">
-                    <p>Clé SSH : <textarea type="text" th:field="*{sshKey}" ></textarea></p>
+                    <p>Choix de la VM : </p>
+                    <select th:field="*{chosenVm}">
+                        <option th:each="i : ${listVm}" th:value="${i}" th:text="${i}">
+                        </option>
+                    </select>
                 </div>
-
+                <div class="form-group">
+                    <p>Clé SSH / Mot de passe Windows : <textarea type="text" th:field="*{sshKey}" ></textarea></p>
+                </div>
                 <input class="bouton" type="submit" value="Créer la VM"/>
             </form>
         </div>

@@ -5,6 +5,7 @@ public class Vm {
     private String vmName;
     private String vmUser;
     private String resourceGroup;
+    private String chosenVm;
 
 
     public String getVmUser() {
@@ -39,6 +40,14 @@ public class Vm {
         this.resourceGroup = resourceGroup;
     }
 
+    public String getChosenVm() {
+        return chosenVm;
+    }
+
+    public void setChosenVm(String chosenVm) {
+        this.chosenVm = chosenVm;
+    }
+
     @Override
     public String toString() {
         return "Vm{" +
@@ -46,6 +55,7 @@ public class Vm {
                 ", vmName='" + vmName + '\'' +
                 ", vmUser='" + vmUser + '\'' +
                 ", resourceGroup='" + resourceGroup + '\'' +
+                ", chosenVm='" + chosenVm + '\'' +
                 '}';
     }
 }

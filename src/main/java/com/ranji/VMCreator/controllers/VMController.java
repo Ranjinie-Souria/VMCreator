@@ -28,6 +28,7 @@ public class VMController {
     public String createVM(Model model, @ModelAttribute Vm vm) {
         String ipAddress = vmService.createAndDestroyVM(vm);
         model.addAttribute("ip",ipAddress);
+        model.addAttribute("user",vm.getVmUser());
         return "vm";
     }
 
