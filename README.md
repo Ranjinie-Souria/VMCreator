@@ -150,18 +150,24 @@ Cet utilisateur n'a aucun droit. Le pauvre ! Connectez vous sous un autre utilis
 
 #### Utilisateur user et superuser
 
-Pour ces utilisateurs, il vous faut une clé ssh, que vous trouverez dans votre dossier C:\Users\<username>\. ssh\id_rsa. Le formulaire vous demandera donc de renseigner votre clé ssh, puis le nom de votre VM, le nom du groupe de ressources ainsi que le nom d'utilisateur.
-
-L'application vous montrera ensuite l'adresse IP de la VM créee. Pour se connecter à la VM, utilisez un terminal bash : 
+Pour la création d'une VM Linux, il vous faut une clé ssh, que vous trouverez dans votre dossier C:\Users\<username>\. ssh\id_rsa. Le formulaire vous demandera donc de renseigner votre clé ssh, puis le nom de votre VM, le nom du groupe de ressources ainsi que le nom d'utilisateur.
+L'application vous montrera ensuite l'adresse IP de la VM créee. Pour se connecter à la VM dans le cas d'une image linux, utilisez un terminal bash : 
 ```
 ssh username@ip_address
 ```
 
+Pour le cas d'une VM Windows qui est disponible si vous êtes connecté en tant que superuser, au lieu d'une clé SSH il faut entrer un mot de passe windows.
+Je n'ai pas pu tester la création de la VM Windows mais en théorie elle devrait fonctionner. =)
+
 L'application vous informera si la création s'est mal passée. En général, les problèmes surviennent si :
 
+- Le nom d'utilisateur choisi ne respecte pas les règles de nommages d'Azure
+- Le nom du groupe de ressource et de la VM existent déjà
+- D'autres règles de nommage que je ne connais pas
 
 ### Suppression
 
 Le groupe de ressources se supprimera automatiquement au bout de 10 minutes. Cependant, il faut pour cela laisser l'application ouverte ! Attention à vos précieux crédits !
-Si cette fonctionnalité ne marche pas... Veuillez bien vouloir supprimer le groupe de ressources par vous même, depuis le portail Azure. =)
+Une fonctionnalité a cependant été implémentée pour pouvoir supprimer le dernier groupe de ressources crée à la fermeture de l'application.
+Si ces fonctionnalités ne marchent pas... Veuillez bien vouloir supprimer le groupe de ressources par vous même, depuis le portail Azure. =)
 
